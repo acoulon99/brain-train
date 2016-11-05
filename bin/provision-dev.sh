@@ -24,3 +24,4 @@ npm install
 
 # add environment variables to .profile
 echo "export PROJECT_HOME=/home/vagrant" >> /home/vagrant/.profile
+echo "export NODE_ENV=dev" >> /home/vagrant/.profile
