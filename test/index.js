@@ -1,5 +1,5 @@
-'use strict';
-import assert from "assert";
+"use strict";
+const assert = require("assert");
 
 describe("Test placeholder", () => {
   	it("should pass", done => {
