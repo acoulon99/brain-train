@@ -12,8 +12,13 @@
   },
   "author": "Adam Coulon <adamgcoulon@gmail.com>",
   "devDependencies": {
-    "mocha": "^3.1.2",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {
     "hapi": "^15.1.0",
-    "glue": "^4.0.0"
+    "glue": "^4.0.0",
+    "sequelize": "^3.24.8",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2"
   }
 }

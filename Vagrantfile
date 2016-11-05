@@ -15,6 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # provision scripts
   config.vm.provision :shell, path: "./bin/provision-dev.sh", privileged: false
+  config.vm.provision :shell, path: "./bin/provision-postgres.sh", privilaged: false
 
   # Create a private network, which allows host-only access to the machine
   config.vm.network "private_network", ip: PRIVATE_NETWORK
