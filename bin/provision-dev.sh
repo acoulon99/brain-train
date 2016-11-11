@@ -3,25 +3,32 @@
 
 set -e # Exit script immediately on first error.
 
-echo "Updating..."
-sudo apt-get update
+PROJECT_HOME=/home/vagrant
+SYNCED_FOLDER=/vagrant
 
-echo "Installing GIT..."
-sudo apt-get install -y git libkrb5-dev 
-
-echo "Installing Nodejs and NPM..."
+# Prep
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
 curl --silent --location https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get install -y build-essential g++ nodejs
 
-echo "Installing PM2 server manager..."
+# Update and install
+sudo apt-get update
+sudo apt-get install -y postgresql postgresql-contrib libpq-dev git libkrb5-dev build-essential g++ nodejs
+
+# Create postgres development/test db and user
+sudo -u postgres psql -U postgres -c "CREATE DATABASE dev;"
+sudo -u postgres psql -U postgres -c "CREATE DATABASE test;"
+sudo -u postgres psql -U postgres -c "CREATE USER vagrant WITH PASSWORD 'vagrant';"
+
+# Node process manager
 sudo npm install pm2 -g
 
-echo "rsyncing synced folder to vagrant user directory..."
-rsync -avh --include=".babelrc" --include=".gitignore" --exclude="node_modules" --exclude=".*" --exclude="dist" --delete /vagrant/ /home/vagrant
+# Pull in files from host
+rsync -avh --include=".gitignore" --exclude="node_modules" --exclude=".*" --delete "$SYNCED_FOLDER"/ "$PROJECT_HOME"
 
-echo "Installing dependencies..."
+# Install node dependencies
 npm install
 
-# add environment variables to .profile
-echo "export PROJECT_HOME=/home/vagrant" >> /home/vagrant/.profile
+# Setting environment variables
+echo "export PROJECT_HOME=$PROJECT_HOME" >> /home/vagrant/.profile
 echo "export NODE_ENV=dev" >> /home/vagrant/.profile
