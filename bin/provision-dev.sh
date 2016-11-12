@@ -5,6 +5,7 @@ set -e # Exit script immediately on first error.
 
 PROJECT_HOME=/home/vagrant
 SYNCED_FOLDER=/vagrant
+BIN=$PROJECT_HOME/bin
 
 # Prep
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
@@ -25,6 +26,10 @@ sudo npm install pm2 -g
 
 # Pull in files from host
 rsync -avh --include=".gitignore" --exclude="node_modules" --exclude=".*" --delete "$SYNCED_FOLDER"/ "$PROJECT_HOME"
+chmod u+x $BIN/*.sh # make scripts executable for Vagrant user
+
+
+chmod u+x $BIN/*.sh
 
 # Install node dependencies
 npm install
