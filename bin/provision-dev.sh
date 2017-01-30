@@ -14,7 +14,7 @@ curl --silent --location https://deb.nodesource.com/setup_6.x | sudo -E bash -
 
 # Update and install
 sudo apt-get update
-sudo apt-get install -y postgresql postgresql-contrib libpq-dev git libkrb5-dev build-essential g++ nodejs
+sudo apt-get install -y libpq-dev libkrb5-dev build-essential git g++ postgresql postgresql-contrib nodejs
 
 # Create postgres development/test db and user
 sudo -u postgres psql -U postgres -c "CREATE DATABASE dev;"
