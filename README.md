@@ -28,7 +28,6 @@ Management and collaboration platform for neural nets
 ### Launch The Server
 
 - Start Server
-
   ```
   npm run serve
   ```
@@ -38,14 +37,11 @@ Management and collaboration platform for neural nets
 ### Other Useful Commands
 
 - Sync code with local directory (pulls in code changes to the VM)
-
   ```
   ./bin/sync.sh
   ```
   
 - Sync code and restart server
-
   ```
   ./bin/sync.sh && npm run serve
   ```
-
